@@ -60,6 +60,7 @@ int main(int argc, char** argv) {
    m1.setSpeed(10);
    m1.rotate(720.0f);   //in degrees
    
+   m1.threadedStepForDuration()
    return 0;
 }
 
