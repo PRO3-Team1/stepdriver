@@ -12,6 +12,18 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="vendor" displayName="vendor" projectFiles="true">
+        <logicalFolder name="EBBLibrary" displayName="EBBLibrary" projectFiles="true">
+          <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
+            <itemPath>vendor/EBBLibrary/gpio/GPIO.cpp</itemPath>
+            <itemPath>vendor/EBBLibrary/gpio/GPIO.h</itemPath>
+            <itemPath>vendor/EBBLibrary/gpio/PWM.cpp</itemPath>
+            <itemPath>vendor/EBBLibrary/gpio/PWM.h</itemPath>
+            <itemPath>vendor/EBBLibrary/gpio/util.cpp</itemPath>
+            <itemPath>vendor/EBBLibrary/gpio/util.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -24,35 +36,39 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
-      <itemPath>vendor/EBBLibrary/libEBBLibrary.a</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>vendor</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>vendor/EBBLibrary</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
-          <linkerAddLib>
-            <pElem>vendor/EBBLibrary</pElem>
-          </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>-static</linkerOptionItem>
-            <linkerLibFileItem>vendor/EBBLibrary/libEBBLibrary.a</linkerLibFileItem>
-            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/GPIO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/GPIO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/PWM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/PWM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/util.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/util.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -77,6 +93,18 @@
         </asmTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/GPIO.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/GPIO.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/PWM.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/PWM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/util.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="vendor/EBBLibrary/gpio/util.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -35,7 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/vendor/EBBLibrary/gpio/GPIO.o \
+	${OBJECTDIR}/vendor/EBBLibrary/gpio/PWM.o \
+	${OBJECTDIR}/vendor/EBBLibrary/gpio/util.o
 
 
 # C Compiler Flags
@@ -52,13 +55,11 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Lvendor/EBBLibrary -static vendor/EBBLibrary/libEBBLibrary.a -lpthread
+LDLIBSOPTIONS=-static
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/stepdriver
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/stepdriver: vendor/EBBLibrary/libEBBLibrary.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/stepdriver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -67,7 +68,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/stepdriver: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Ivendor/EBBLibrary -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/vendor/EBBLibrary/gpio/GPIO.o: vendor/EBBLibrary/gpio/GPIO.cpp
+	${MKDIR} -p ${OBJECTDIR}/vendor/EBBLibrary/gpio
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/vendor/EBBLibrary/gpio/GPIO.o vendor/EBBLibrary/gpio/GPIO.cpp
+
+${OBJECTDIR}/vendor/EBBLibrary/gpio/PWM.o: vendor/EBBLibrary/gpio/PWM.cpp
+	${MKDIR} -p ${OBJECTDIR}/vendor/EBBLibrary/gpio
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/vendor/EBBLibrary/gpio/PWM.o vendor/EBBLibrary/gpio/PWM.cpp
+
+${OBJECTDIR}/vendor/EBBLibrary/gpio/util.o: vendor/EBBLibrary/gpio/util.cpp
+	${MKDIR} -p ${OBJECTDIR}/vendor/EBBLibrary/gpio
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/vendor/EBBLibrary/gpio/util.o vendor/EBBLibrary/gpio/util.cpp
 
 # Subprojects
 .build-subprojects:

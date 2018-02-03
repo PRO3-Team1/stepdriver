@@ -36,7 +36,6 @@
 #include<fcntl.h>
 #include<unistd.h>
 #include<sys/epoll.h>
-#include<pthread.h>
 using namespace std;
 
 namespace exploringBB {
@@ -48,9 +47,6 @@ GPIO::GPIO(int number) {
 	this->number = number;
 	this->debounceTime = 0;
 	this->togglePeriod=100;
-	this->toggleNumber=-1; //infinite number
-	this->callbackFunction = NULL;
-	this->threadRunning = false;
 
 	ostringstream s;
 	s << "gpio" << number;
@@ -58,7 +54,7 @@ GPIO::GPIO(int number) {
 	this->path = GPIO_PATH + this->name + "/";
 	this->exportGPIO();
 	// need to give Linux time to set up the sysfs structure
-	usleep(250000); // 250ms delay
+	//usleep(250000); // 250ms delay
 }
 /**
  * Private write method that writes a single string value to a file in the path provided
@@ -200,34 +196,6 @@ int GPIO::toggleOutput(){
     return 0;
 }
 
-int GPIO::toggleOutput(int time){ return this->toggleOutput(-1, time); }
-int GPIO::toggleOutput(int numberOfTimes, int time){
-	this->setDirection(OUTPUT);
-	this->toggleNumber = numberOfTimes;
-	this->togglePeriod = time;
-	this->threadRunning = true;
-    if(pthread_create(&this->thread, NULL, &threadedToggle, static_cast<void*>(this))){
-    	perror("GPIO: Failed to create the toggle thread");
-    	this->threadRunning = false;
-    	return -1;
-    }
-    return 0;
-}
-
-// This thread function is a friend function of the class
-void* threadedToggle(void *value){
-	GPIO *gpio = static_cast<GPIO*>(value);
-	bool isHigh = (bool) gpio->getValue(); //find current value
-	while(gpio->threadRunning){
-		if (isHigh)	gpio->setValue(GPIO::HIGH);
-		else gpio->setValue(GPIO::LOW);
-		usleep(gpio->togglePeriod * 500);
-		isHigh=!isHigh;
-		if(gpio->toggleNumber>0) gpio->toggleNumber--;
-		if(gpio->toggleNumber==0) gpio->threadRunning=false;
-	}
-	return 0;
-}
 
 // Blocking Poll - based on the epoll socket code in the epoll man page
 int GPIO::waitForEdge(){
@@ -266,28 +234,6 @@ int GPIO::waitForEdge(){
     close(fd);
     if (count==5) return -1;
 	return 0;
-}
-
-// This thread function is a friend function of the class
-void* threadedPoll(void *value){
-	GPIO *gpio = static_cast<GPIO*>(value);
-	while(gpio->threadRunning){
-		gpio->callbackFunction(gpio->waitForEdge());
-		usleep(gpio->debounceTime * 1000);
-	}
-	return 0;
-}
-
-int GPIO::waitForEdge(CallbackType callback){
-	this->threadRunning = true;
-	this->callbackFunction = callback;
-    // create the thread, pass the reference, address of the function and data
-    if(pthread_create(&this->thread, NULL, &threadedPoll, static_cast<void*>(this))){
-    	perror("GPIO: Failed to create the poll thread");
-    	this->threadRunning = false;
-    	return -1;
-    }
-    return 0;
 }
 
 GPIO::~GPIO() {

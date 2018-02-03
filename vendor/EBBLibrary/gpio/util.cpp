@@ -42,6 +42,7 @@ int write(string path, string filename, string value){
    fs.open((path + filename).c_str());
    if (!fs.is_open()){
 	   perror("GPIO: write failed to open file ");
+           printf("Path: %s Value: %s\n",(path + filename).c_str(), value.c_str());
 	   return -1;
    }
    fs << value;

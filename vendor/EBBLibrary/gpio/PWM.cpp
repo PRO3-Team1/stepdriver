@@ -36,7 +36,7 @@ PWM::PWM(string pinName) {
 }
 
 int PWM::setPeriod(unsigned int period_ns){
-	return write(this->path, PWM_PERIOD, period_ns);
+    return write(this->path, PWM_PERIOD, period_ns);
 }
 
 unsigned int PWM::getPeriod(){
@@ -122,6 +122,10 @@ bool PWM::isRunning(){
 
 int PWM::stop(){
 	return write(this->path, PWM_RUN, 0);
+}
+
+string PWM::getPath() {
+    return this->path;
 }
 
 PWM::~PWM() {}

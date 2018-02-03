@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux
+CND_PLATFORM=None-Linux
 CND_DLIB_EXT=so
 CND_CONF=Release
 CND_DISTDIR=dist
@@ -35,7 +35,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/vendor/EBBLibrary/gpio/GPIO.o \
+	${OBJECTDIR}/vendor/EBBLibrary/gpio/PWM.o \
+	${OBJECTDIR}/vendor/EBBLibrary/gpio/util.o
 
 
 # C Compiler Flags
@@ -66,6 +69,21 @@ ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/vendor/EBBLibrary/gpio/GPIO.o: vendor/EBBLibrary/gpio/GPIO.cpp
+	${MKDIR} -p ${OBJECTDIR}/vendor/EBBLibrary/gpio
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/vendor/EBBLibrary/gpio/GPIO.o vendor/EBBLibrary/gpio/GPIO.cpp
+
+${OBJECTDIR}/vendor/EBBLibrary/gpio/PWM.o: vendor/EBBLibrary/gpio/PWM.cpp
+	${MKDIR} -p ${OBJECTDIR}/vendor/EBBLibrary/gpio
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/vendor/EBBLibrary/gpio/PWM.o vendor/EBBLibrary/gpio/PWM.cpp
+
+${OBJECTDIR}/vendor/EBBLibrary/gpio/util.o: vendor/EBBLibrary/gpio/util.cpp
+	${MKDIR} -p ${OBJECTDIR}/vendor/EBBLibrary/gpio
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/vendor/EBBLibrary/gpio/util.o vendor/EBBLibrary/gpio/util.cpp
 
 # Subprojects
 .build-subprojects:
