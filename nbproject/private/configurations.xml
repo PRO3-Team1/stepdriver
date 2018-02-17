@@ -4,7 +4,7 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <developmentServer>debian@192.168.7.2:22</developmentServer>
+        <developmentServer>root@jcktrue.dk:8000</developmentServer>
         <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
@@ -25,8 +25,9 @@
       <runprofile version="9">
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" listen</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <runcommand>"${OUTPUT_PATH}" listen</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

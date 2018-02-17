@@ -15,6 +15,8 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
+#include <string>
+#include <sstream>
 #include "./vendor/EBBLibrary/gpio/PWM.h"
 #include "./vendor/EBBLibrary/gpio/GPIO.h"
 #include "vendor/EBBLibrary/gpio/util.h"
@@ -45,11 +47,21 @@ using namespace exploringBB;
  */
 
 int main(int argc, char** argv) {
-    if (argc == 0) {
-        puts("Please enter a speed for each motor, stop or init");
+    
+    if (argc < 2) {
+        puts("Stepdriver tool for BBB");
+        puts("Commands:");
+        puts(" - init");
+        puts("\t Initialize all pins correctly. Must be run first");
+        puts(" - set [left] [right]");
+        puts("\t Set the speed of left and right with two floats values. Negative values for reverse");
+        puts(" - stop");
+        puts("\t Stops both motors");
+        puts(" - listen");
+        puts("\t Puts into listen mode that accepts commands on STDIN");
         return (EXIT_SUCCESS);
     }
-
+    
     GPIO driver1_enable(GPIOPIN_DRIVER1_ENABLE);
     GPIO driver1_ms1(GPIOPIN_DRIVER1_MS1);
     GPIO driver1_ms2(GPIOPIN_DRIVER1_MS2);
@@ -82,13 +94,13 @@ int main(int argc, char** argv) {
         cout << "Driver 1..." << endl;
         usleep(250000);
         driver1_enable.setDirection(GPIO::OUTPUT);
-        driver1_enable.setValue(GPIO::HIGH);
+        driver1_enable.setValue(GPIO::LOW); //SHould be low to enable the output
         driver1_ms1.setDirection(GPIO::OUTPUT);
-        driver1_ms1.setValue(GPIO::HIGH);
+        driver1_ms1.setValue(GPIO::LOW);
         driver1_ms2.setDirection(GPIO::OUTPUT);
-        driver1_ms2.setValue(GPIO::HIGH);
+        driver1_ms2.setValue(GPIO::LOW);
         driver1_ms3.setDirection(GPIO::OUTPUT);
-        driver1_ms3.setValue(GPIO::HIGH);
+        driver1_ms3.setValue(GPIO::LOW);
         
         cout << "Driver 2..." << endl;
         usleep(250000);
@@ -100,13 +112,13 @@ int main(int argc, char** argv) {
         driver1_dir.setValue(GPIO::HIGH);
         
         driver2_enable.setDirection(GPIO::OUTPUT);
-        driver2_enable.setValue(GPIO::HIGH);
+        driver2_enable.setValue(GPIO::LOW);
         driver2_ms1.setDirection(GPIO::OUTPUT);
-        driver2_ms1.setValue(GPIO::HIGH);
+        driver2_ms1.setValue(GPIO::LOW);
         driver2_ms2.setDirection(GPIO::OUTPUT);
-        driver2_ms2.setValue(GPIO::HIGH);
+        driver2_ms2.setValue(GPIO::LOW);
         driver2_ms3.setDirection(GPIO::OUTPUT);
-        driver2_ms3.setValue(GPIO::HIGH);
+        driver2_ms3.setValue(GPIO::LOW);
         
         driver2_reset.setDirection(GPIO::OUTPUT);
         driver2_reset.setValue(GPIO::HIGH);
@@ -119,8 +131,6 @@ int main(int argc, char** argv) {
         exit(EXIT_SUCCESS);
     }
 
-
-
     if (argc == 2 && strcmp(argv[1], "stop") == 0) {
         driver1_step.stop();
         driver2_step.stop();
@@ -128,9 +138,9 @@ int main(int argc, char** argv) {
         exit(EXIT_SUCCESS);
     }
 
-    if (argc == 3) {
-        cout << "Starting PWM with frequency of " << argv[1] << " and " << argv[2] << endl;
-        float speed = atof(argv[1]);      
+    if (argc == 4 && strcmp(argv[1], "set") == 0) {
+        cout << "Setting PWM with frequency of " << argv[2] << " and " << argv[3] << endl;
+        float speed = atof(argv[2]);      
         if(speed < 0 )
         {
             speed = -speed;
@@ -142,7 +152,7 @@ int main(int argc, char** argv) {
         driver1_step.setDutyCycle((unsigned int) 100000); //From A4988 datasheet - minimum high time
         driver1_step.run();
         
-        speed = atof(argv[2]);      
+        speed = atof(argv[3]);      
         if(speed < 0 )
         {
             speed = -speed;
@@ -155,6 +165,37 @@ int main(int argc, char** argv) {
         driver2_step.run();
     }
 
-    return 0;
+    if (argc == 2 && strcmp(argv[1], "listen") == 0) {
+        cout << "Listen for commands on stdin..." << endl;
+        string input;
+        while(1) {
+            cin >> input;
+            if(input.at(0) != '#') 
+            {
+                istringstream inputs(input);
+                string token;
+                int index = 0;
+                string command;
+                string args[5];
+                while (std::getline(inputs, token, ','))
+                {
+                    if(index == 0)
+                        command = token;
+                    else 
+                        args[index] = token;
+                    index++;
+                }
+                
+                if(command == "MOVE") {
+                    cout << "Moving: " << args[1] << " and " <<  args[2] << endl;
+                }
+                if(command == "STOP") {
+                    cout << "Stopping" << endl;
+                }
+            }
+        }
+    }
+    
+    return EXIT_SUCCESS;
 }
 
