@@ -155,7 +155,10 @@ int main(int argc, char** argv) {
     }
     return EXIT_SUCCESS;
 }
-
+/*
+ * converter takes a force and an angle and outputs Dir and step frequency to
+ * the stepper motor drivers
+ */
 void converter(string iAngle, string iForce) {
     float force = stof(iForce);
     float angle = stof(iAngle);
@@ -183,6 +186,17 @@ void converter(string iAngle, string iForce) {
     driver2_step.run();
 }
 
+/*
+ * Sets up pwm pins:
+ * P9.14 & P8.13
+ * 
+ * Initializes the steppermotor driver with the default settings:
+ * Microstepping option:    Full step
+ * Enable:                  Low (Low == enable)
+ * Reset:                   High
+ * Sleep:                   High
+ * Dir:                     High
+ */
 void init(void) {
     cout << "Initializing pins for PWM" << endl;
     system("config-pin P9.14 pwm");
@@ -196,7 +210,7 @@ void init(void) {
     cout << "Driver 1..." << endl;
     usleep(250000);
     driver1_enable.setDirection(GPIO::OUTPUT);
-    driver1_enable.setValue(GPIO::LOW); //SHould be low to enable the output
+    driver1_enable.setValue(GPIO::LOW); //Should be low to enable the output
     driver1_ms1.setDirection(GPIO::OUTPUT);
     driver1_ms1.setValue(GPIO::LOW);
     driver1_ms2.setDirection(GPIO::OUTPUT);
@@ -232,6 +246,10 @@ void init(void) {
     cout << "Pinsetup done..." << endl;
 }
 
+
+/*
+ * calls the stop method on both motor objects, stopping the motors
+ */
 void stop(void) {
     driver1_step.stop();
     driver2_step.stop();
