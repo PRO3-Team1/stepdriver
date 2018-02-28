@@ -44,14 +44,14 @@ using namespace exploringBB;
 #define GPIOPIN_DRIVER2_STEP        "pwmchip3/pwm0"  //P9 - Pin 14
 #define GPIOPIN_DRIVER2_DIRECTION   60  //P9 - Pin 12
 
-#define MAXSPEED 200 //Motor max step frequency
+#define MAXSPEED 450 //Motor max step frequency
 
 void converter(string iAngle, string iForce);
 void init(void);
 void stop(void);
 
-double left = 0;
-double right = 0;
+double lRatio = 0;
+double rRatio = 0;
 
 GPIO driver1_enable(GPIOPIN_DRIVER1_ENABLE);
 GPIO driver1_ms1(GPIOPIN_DRIVER1_MS1);
@@ -193,7 +193,7 @@ void converter(string iAngle, string iForce)
 		printf("error in AngleCalc function");
 	}
 
-	float speed = force * left * MAXSPEED; //TODO: fix this
+	float speed = force * lRatio * MAXSPEED; //TODO: fix this
 	if (speed < 0)
 	{
 		speed = -speed;
@@ -207,7 +207,7 @@ void converter(string iAngle, string iForce)
 	driver1_step.setDutyCycle((unsigned int) 100000); //From A4988 datasheet - minimum high time
 	driver1_step.run();
 
-	speed = force * right * MAXSPEED; //TODO: fix this
+	speed = force * rRatio * MAXSPEED; //TODO: fix this
 	if (speed < 0)
 	{
 		speed = -speed;

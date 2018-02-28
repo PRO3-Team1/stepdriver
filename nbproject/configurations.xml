@@ -24,6 +24,8 @@
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
+      <itemPath>angleCalc.cpp</itemPath>
+      <itemPath>angleCalc.h</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -56,6 +58,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="angleCalc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="angleCalc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="vendor/EBBLibrary/gpio/GPIO.cpp" ex="false" tool="1" flavor2="0">
@@ -92,6 +98,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="angleCalc.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="angleCalc.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="vendor/EBBLibrary/gpio/GPIO.cpp" ex="false" tool="1" flavor2="0">

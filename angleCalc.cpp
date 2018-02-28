@@ -11,8 +11,8 @@
 
 float deg = 0.1; // 6 deg void
 
-extern double left;
-extern double right;
+extern double lRatio;
+extern double rRatio;
 
 int angleCalc(double Ang)
 {
@@ -21,8 +21,8 @@ int angleCalc(double Ang)
 
 	if ((0 <= Ang) && (Ang < M_PI_2-deg))
 	{
-		right = sin(Ang);
-		left = 1;
+		rRatio = sin(Ang);
+		lRatio = 1;
 		return 0;
 	}
 
@@ -30,8 +30,8 @@ int angleCalc(double Ang)
 
 	else if ((M_PI_2+deg < Ang) && (Ang <= M_PI))
 	{
-		right = 1;
-		left = sin(Ang);
+		rRatio = 1;
+		lRatio = sin(Ang);
 		return 0;
 	}
 
@@ -39,8 +39,8 @@ int angleCalc(double Ang)
 
 	else if ((M_PI < Ang) && (Ang <= M_PI+M_PI_2))
 	{
-		right = -1;
-		left = cos(Ang);
+		rRatio = -1;
+		lRatio = cos(Ang);
 		return 0;
 	}
 
@@ -48,15 +48,15 @@ int angleCalc(double Ang)
 
 	else if ((M_PI+M_PI_2 < Ang) && (Ang < M_PI*2))
 	{
-		right = sin(Ang);
-		left = -1;
+		rRatio = sin(Ang);
+		lRatio = -1;
 		return 0;
 	}
 
 	else
 	{
-		right = 1;
-		left = 1;
+		rRatio = 1;
+		lRatio = 1;
 		return 0;
 		//printf("Full forward\n");
 	}
