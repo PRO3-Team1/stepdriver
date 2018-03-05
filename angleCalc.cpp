@@ -40,7 +40,7 @@ int angleCalc(double Ang)
 	else if ((M_PI < Ang) && (Ang <= M_PI+M_PI_2))
 	{
 		rRatio = -1;
-		lRatio = cos(Ang);
+		lRatio = sin(Ang);
 		return 0;
 	}
 

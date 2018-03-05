@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>io.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -52,6 +53,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerOptionItem>-static</linkerOptionItem>
@@ -61,6 +65,8 @@
       <item path="angleCalc.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="angleCalc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="io.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -101,6 +107,8 @@
       <item path="angleCalc.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="angleCalc.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="io.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
