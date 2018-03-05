@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
                 cout << "Moving: " << args[0] << " and " << args[1] << endl;
                 converter(args[0], args[1]);
             }
-            if (command == "END") {
+            else if (command == "END") {
                 stop();
                 cout << "Stopping" << endl;
             }
