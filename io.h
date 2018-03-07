@@ -32,8 +32,8 @@ using namespace exploringBB;
 #define GPIOPIN_DRIVER1_ENABLE      27  //P8 - Pin 17
 #define GPIOPIN_DRIVER1_MS1         66  //P8 - Pin 7
 #define GPIOPIN_DRIVER1_MS2         69  //P8 - Pin 9
-#define GPIOPIN_DRIVER1_MS3         65  //P8 - Pin 18
-#define GPIOPIN_DRIVER1_RESET       26  //P8 - Pin 14
+#define GPIOPIN_DRIVER1_I1          65  //P8 - Pin 18
+#define GPIOPIN_DRIVER1_I2          26  //P8 - Pin 14
 #define GPIOPIN_DRIVER1_SLEEP       46  //P8 - Pin 16
 #define GPIOPIN_DRIVER1_STEP        "pwmchip6/pwm1" //P8 - Pin 13
 #define GPIOPIN_DRIVER1_DIRECTION   68  //P8 - Pin 10
@@ -41,8 +41,8 @@ using namespace exploringBB;
 #define GPIOPIN_DRIVER2_ENABLE      48  //P9 - Pin 15
 #define GPIOPIN_DRIVER2_MS1         49  //P9 - Pin 23
 #define GPIOPIN_DRIVER2_MS2         117 //P9 - Pin 25
-#define GPIOPIN_DRIVER2_MS3         115 //P9 - Pin 27
-#define GPIOPIN_DRIVER2_RESET       112 //P9 - Pin 30
+#define GPIOPIN_DRIVER2_I1          115 //P9 - Pin 27
+#define GPIOPIN_DRIVER2_I2          112 //P9 - Pin 30
 #define GPIOPIN_DRIVER2_SLEEP       20  //P9 - Pin 41
 #define GPIOPIN_DRIVER2_STEP        "pwmchip3/pwm0"  //P9 - Pin 14
 #define GPIOPIN_DRIVER2_DIRECTION   60  //P9 - Pin 12
@@ -56,16 +56,16 @@ void stop(void);
 GPIO driver1_enable(GPIOPIN_DRIVER1_ENABLE);
 GPIO driver1_ms1(GPIOPIN_DRIVER1_MS1);
 GPIO driver1_ms2(GPIOPIN_DRIVER1_MS2);
-GPIO driver1_ms3(GPIOPIN_DRIVER1_MS3);
-GPIO driver1_reset(GPIOPIN_DRIVER1_RESET);
+GPIO driver1_i1(GPIOPIN_DRIVER1_I1);
+GPIO driver1_i2(GPIOPIN_DRIVER1_I2);
 GPIO driver1_sleep(GPIOPIN_DRIVER1_SLEEP);
 GPIO driver1_dir(GPIOPIN_DRIVER1_DIRECTION);
 
 GPIO driver2_enable(GPIOPIN_DRIVER2_ENABLE);
 GPIO driver2_ms1(GPIOPIN_DRIVER2_MS1);
 GPIO driver2_ms2(GPIOPIN_DRIVER2_MS2);
-GPIO driver2_ms3(GPIOPIN_DRIVER2_MS3);
-GPIO driver2_reset(GPIOPIN_DRIVER2_RESET);
+GPIO driver2_i1(GPIOPIN_DRIVER2_I1);
+GPIO driver2_i2(GPIOPIN_DRIVER2_I2);
 GPIO driver2_sleep(GPIOPIN_DRIVER2_SLEEP);
 GPIO driver2_dir(GPIOPIN_DRIVER2_DIRECTION);
 

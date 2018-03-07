@@ -87,10 +87,11 @@ void converter(string iAngle, string iForce) {
  * 
  * Initializes the steppermotor driver with the default settings:
  * Microstepping option:    Full step
- * Enable:                  Low (Low == enable)
- * Reset:                   High
+ * Enable:                  Low == enable
+ * I1/I2:                   Low/Low = 2A current limit
  * Sleep:                   High
  * Dir:                     High
+ * 
  */
 void init(void) {
     cout << "Initializing pins for PWM" << endl;
@@ -110,13 +111,13 @@ void init(void) {
     driver1_ms1.setValue(GPIO::LOW);
     driver1_ms2.setDirection(GPIO::OUTPUT);
     driver1_ms2.setValue(GPIO::LOW);
-    driver1_ms3.setDirection(GPIO::OUTPUT);
-    driver1_ms3.setValue(GPIO::LOW);
+    driver1_i1.setDirection(GPIO::OUTPUT);
+    driver1_i1.setValue(GPIO::LOW);
 
     cout << "Driver 2..." << endl;
     usleep(250000);
-    driver1_reset.setDirection(GPIO::OUTPUT);
-    driver1_reset.setValue(GPIO::HIGH);
+    driver1_i2.setDirection(GPIO::OUTPUT);
+    driver1_i2.setValue(GPIO::LOW);
     driver1_sleep.setDirection(GPIO::OUTPUT);
     driver1_sleep.setValue(GPIO::HIGH);
     driver1_dir.setDirection(GPIO::OUTPUT);
@@ -128,11 +129,11 @@ void init(void) {
     driver2_ms1.setValue(GPIO::LOW);
     driver2_ms2.setDirection(GPIO::OUTPUT);
     driver2_ms2.setValue(GPIO::LOW);
-    driver2_ms3.setDirection(GPIO::OUTPUT);
-    driver2_ms3.setValue(GPIO::LOW);
+    driver2_i1.setDirection(GPIO::OUTPUT);
+    driver2_i1.setValue(GPIO::LOW);
 
-    driver2_reset.setDirection(GPIO::OUTPUT);
-    driver2_reset.setValue(GPIO::HIGH);
+    driver2_i2.setDirection(GPIO::OUTPUT);
+    driver2_i2.setValue(GPIO::LOW);
     driver2_sleep.setDirection(GPIO::OUTPUT);
     driver2_sleep.setValue(GPIO::HIGH);
     driver2_dir.setDirection(GPIO::OUTPUT);
