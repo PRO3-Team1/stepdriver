@@ -47,7 +47,7 @@ using namespace exploringBB;
 #define GPIOPIN_DRIVER2_STEP        "pwmchip3/pwm0"  //P9 - Pin 14
 #define GPIOPIN_DRIVER2_DIRECTION   60  //P9 - Pin 12
 
-#define MAXSPEED 600 //Motor max step frequency
+#define MAXSPEED 300 //Motor max step frequency
 
 void converter(string iAngle, string iForce);
 void init(void);

@@ -58,7 +58,7 @@ void converter(string iAngle, string iForce) {
         printf("error in AngleCalc function");
     }
 
-    float speed = force * rRatio * MAXSPEED; //TODO: fix this
+    float speed = force * lRatio * MAXSPEED; //TODO: fix this
     if (speed < 0) {
         speed = -speed;
         /* Note that the dir is reversed between driver1 and driver 2, this is
@@ -71,7 +71,7 @@ void converter(string iAngle, string iForce) {
     driver1_step.setDutyCycle((unsigned int) 100000); //From A4988 datasheet - minimum high time
     driver1_step.run();
 
-    speed = force * lRatio * MAXSPEED; //TODO: fix this
+    speed = force * rRatio * MAXSPEED; //TODO: fix this
     if (speed < 0) {
         speed = -speed;
         driver2_dir.setValue(GPIO::LOW);
