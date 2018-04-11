@@ -61,9 +61,11 @@ void converter(string iAngle, string iForce) {
     float speed = force * rRatio * MAXSPEED; //TODO: fix this
     if (speed < 0) {
         speed = -speed;
-        driver1_dir.setValue(GPIO::LOW);
-    } else {
+        /* Note that the dir is reversed between driver1 and driver 2, this is
+         because they are mounted differently mechanically*/
         driver1_dir.setValue(GPIO::HIGH);
+    } else {
+        driver1_dir.setValue(GPIO::LOW);
     }
     driver1_step.setFrequency(speed);
     driver1_step.setDutyCycle((unsigned int) 100000); //From A4988 datasheet - minimum high time
