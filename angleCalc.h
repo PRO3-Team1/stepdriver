@@ -2,7 +2,7 @@
  * AngleCalc.h
  *
  *  Created on: 26. feb. 2018
- *      Author: Mich
+ *      Author: TEAM1
  */
 
 #ifndef ANGLECALC_H_
