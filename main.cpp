@@ -9,7 +9,9 @@
 
 double lRatio = 0;
 double rRatio = 0;
-
+/*
+ * Main function. Here the stdin data is processed and handed off to handler functions
+ */
 int main(int argc, char** argv) {
 
     init();
@@ -19,21 +21,23 @@ int main(int argc, char** argv) {
         cin >> input;
         if (input.at(0) != '#') // This is the debug character
         {
-            istringstream inputs(input);
-            string token;
+            //Here there CSV input is imported line by line. Each line is split on commas
+            // and copied into "command" and and array of "args"
+            istringstream inputs(input); //convert the input string to a stringstream object
+            string token;                //token (which will be taking from input)
             int index = 0;
-            string command;
-            string args[2];
-            while (getline(inputs, token, ',')) {
+            string command;              //parsed command from input stream
+            string args[2];              //arguments for command
+            while (getline(inputs, token, ',')) { //Tokenize the input string on ,
                 if (index == 0) {
-                    command = token;
-                } else if (index < 3) { // There are only two parameters to the MOVE command
+                    command = token;              //Assign the first token to the command
+                } else if (index < 3) { // There are only two parameters to the MOVE command so we move the args over
                     args[index - 1] = token;
                 }
                 index++;
             }
-
-            if (command == "MOVE") {
+            //Execute commands 
+            if (command == "MOVE") { 
                 cout << "Moving: " << args[0] << " and " << args[1] << endl;
                 converter(args[0], args[1]);
             }
@@ -54,11 +58,13 @@ void converter(string iAngle, string iForce) {
     float force = stof(iForce);
     float angle = stof(iAngle);
 
+    //The conversion from radian and force to relative float speeds for each engine is done in angleCalc
+    //Please notice that this call uses the global variables lRatio and rRatio
     if (angleCalc(angle)) {
         printf("error in AngleCalc function");
     }
 
-    float speed = force * lRatio * MAXSPEED; //TODO: fix this
+    float speed = force * lRatio * MAXSPEED; 
     if (speed < 0) {
         speed = -speed;
         /* Note that the dir is reversed between driver1 and driver 2, this is
@@ -68,10 +74,10 @@ void converter(string iAngle, string iForce) {
         driver1_dir.setValue(GPIO::LOW);
     }
     driver1_step.setFrequency(speed);
-    driver1_step.setDutyCycle((unsigned int) 100000); //From A4988 datasheet - minimum high time
+    driver1_step.setDutyCycle((unsigned int) 100000); //From MP6500 datasheet - minimum high time
     driver1_step.run();
 
-    speed = force * rRatio * MAXSPEED; //TODO: fix this
+    speed = force * rRatio * MAXSPEED; 
     if (speed < 0) {
         speed = -speed;
         driver2_dir.setValue(GPIO::LOW);
@@ -79,7 +85,7 @@ void converter(string iAngle, string iForce) {
         driver2_dir.setValue(GPIO::HIGH);
     }
     driver2_step.setFrequency(speed);
-    driver2_step.setDutyCycle((unsigned int) 100000); //From A4988 datasheet - minimum high time
+    driver2_step.setDutyCycle((unsigned int) 100000); //From MP6500 datasheet - minimum high time
     driver2_step.run();
 }
 
@@ -116,7 +122,6 @@ void init(void) {
     driver1_i1.setDirection(GPIO::OUTPUT);
     driver1_i1.setValue(GPIO::LOW);
 
-    cout << "Driver 2..." << endl;
     usleep(250000);
     driver1_i2.setDirection(GPIO::OUTPUT);
     driver1_i2.setValue(GPIO::LOW);
@@ -125,6 +130,7 @@ void init(void) {
     driver1_dir.setDirection(GPIO::OUTPUT);
     driver1_dir.setValue(GPIO::HIGH);
 
+    cout << "Driver 2..." << endl;
     driver2_enable.setDirection(GPIO::OUTPUT);
     driver2_enable.setValue(GPIO::LOW);
     driver2_ms1.setDirection(GPIO::OUTPUT);
@@ -145,7 +151,7 @@ void init(void) {
 }
 
 /**
- * calls the stop method on both motor objects, stopping the motors
+ * calls the stop method on both motor objects, stopping the motors, disabling PWM
  */
 void stop(void) {
     driver1_step.stop();
