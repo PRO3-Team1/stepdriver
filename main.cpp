@@ -1,6 +1,6 @@
 /* 
  * File:   main.cpp
- * Author: JCT
+ * Author: TEAM1
  *
  * Created on 05 December 2017, 10:24
  */
