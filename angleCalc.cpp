@@ -2,7 +2,7 @@
  * AngleCalc.c
  *
  *  Created on: 26. feb. 2018
- *      Author: Mich
+ *      Author: TEAM1
  *      returns 0 on OK
  *      returns 1 on wrong input
  */
